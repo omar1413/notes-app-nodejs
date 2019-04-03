@@ -43,7 +43,7 @@ yargs.command({
     command:"list",
     describe:"list all notes",
     handler(){
-        console.log("list all notes")
+        notes.listNotes()
     }
 })
 
@@ -52,6 +52,14 @@ yargs.command({
     describe:"read a note",
     handler(){
         console.log("read a note")
+    }
+})
+
+yargs.command({
+    command:"removeAll",
+    describe: "remoce all notes",
+    handler(){
+        notes.removeAll()
     }
 })
 

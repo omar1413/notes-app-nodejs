@@ -52,6 +52,31 @@ const removeNote =  (title) =>{
 
 }
 
+const listNotes = () =>{
+
+    const notes = getNotes();
+
+    if(notes.length > 0){
+        notes.forEach((note) => {
+            console.log(chalk.green("==============================="))
+            console.log("title: ", note.title)
+            console.log("body : ", note.body)
+            console.log(chalk.green("==============================="))
+        })
+    }else{
+        console.log(chalk.red.inverse("no notes to display"))
+    }
+
+}
+
+const removeAll = () => {
+
+    const notes = []
+    saveNotes(notes)
+
+    console.log(chalk.red.inverse("all notes have been removed"))
+}
+
 const saveNotes =  (notes) =>{
     const notesJson = JSON.stringify(notes)
     fs.writeFileSync("./notes.json", notesJson)
@@ -61,5 +86,7 @@ const saveNotes =  (notes) =>{
 module.exports = {
     addNote,
     getNotes,
-    removeNote
+    removeNote,
+    listNotes,
+    removeAll
 };
