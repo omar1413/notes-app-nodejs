@@ -31,7 +31,7 @@ const addNote = (title, body) => {
         saveNotes(notes);
         console.log(chalk.green.inverse("note has been added"))
     } else {
-        console.log(chalk.red.inverse("title already exist"))
+        warnMsg("title already exist")
     }
 
 
@@ -47,7 +47,7 @@ const removeNote = (title) => {
         saveNotes(updatedNotes);
         console.log(chalk.green.inverse("note have been removed"))
     } else {
-        console.log(chalk.red.inverse("there is no note with this title"))
+        warnMsg("there is no note with this title")
     }
 
 }
@@ -58,13 +58,10 @@ const listNotes = () => {
 
     if (notes.length > 0) {
         notes.forEach((note) => {
-            console.log(chalk.green("==============================="))
-            console.log("title: ", note.title)
-            console.log("body : ", note.body)
-            console.log(chalk.green("==============================="))
+            printNote(note)
         })
     } else {
-        console.log(chalk.red.inverse("no notes to display"))
+        warnMsg("no notes to display")
     }
 
 }
@@ -74,7 +71,7 @@ const removeAll = () => {
     const notes = []
     saveNotes(notes)
 
-    console.log(chalk.red.inverse("all notes have been removed"))
+    warnMsg("all notes have been removed")
 }
 
 const read = (title) => {
@@ -82,13 +79,10 @@ const read = (title) => {
     const readableNode = notes.find((note) => note.title == title)
     if (readableNode) {
 
-        console.log(chalk.green("==============================="))
-        console.log("title: ", readableNode.title)
-        console.log("body : ", readableNode.body)
-        console.log(chalk.green("==============================="))
+        printNote(readableNode)
 
     } else {
-        console.log(chalk.red.inverse("there is no note with this title"))
+        warnMsg("there is no note with this title")
     }
 }
 
@@ -97,6 +91,18 @@ const saveNotes = (notes) => {
     fs.writeFileSync("./notes.json", notesJson)
 }
 
+
+const printNote = (note)=>{
+    console.log(chalk.green("==============================="))
+    console.log("title: ", note.title)
+    console.log("body : ", note.body)
+    console.log(chalk.green("==============================="))
+}
+
+const warnMsg = (msg) => {
+    console.log(chalk.red.inverse(msg))
+
+}
 
 module.exports = {
     addNote,
