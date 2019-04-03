@@ -2,7 +2,7 @@
 const fs = require("fs")
 const chalk = require("chalk")
 
-const getNotes = function () {
+const getNotes =  () => {
     try {
         const dataBuffered = fs.readFileSync("notes.json")
         const dataJson = dataBuffered.toString();
@@ -15,14 +15,12 @@ const getNotes = function () {
     }
 }
 
-const addNote = function (title, body) {
+const addNote =  (title, body) => {
 
 
     const notes = getNotes();
 
-    const duplicatedTitles = notes.filter(function (note) {
-        return note.title == title
-    })
+    const duplicatedTitles = notes.filter( (note) => note.title == title)
 
     if (duplicatedTitles.length === 0) {
         notes.push({
@@ -39,12 +37,10 @@ const addNote = function (title, body) {
 
 }
 
-const removeNote = function (title) {
+const removeNote =  (title) =>{
     const notes = getNotes();
 
-    const updatedNotes = notes.filter(function (note) {
-        return note.title !== title
-    })
+    const updatedNotes = notes.filter( (note)=> note.title !== title)
 
     if (notes.length > updatedNotes.length) {
 
@@ -56,7 +52,7 @@ const removeNote = function (title) {
 
 }
 
-const saveNotes = function (notes) {
+const saveNotes =  (notes) =>{
     const notesJson = JSON.stringify(notes)
     fs.writeFileSync("./notes.json", notesJson)
 }
